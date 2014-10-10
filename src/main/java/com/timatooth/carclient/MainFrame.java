@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    boolean horning, forward, backward, left, right;
     private CarConnection connection;
 
     /**
@@ -47,6 +48,9 @@ public class MainFrame extends javax.swing.JFrame {
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 onKeyPress(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                onKeyRelease(evt);
             }
         });
 
@@ -252,22 +256,70 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println("Key press: " + evt.getKeyChar());
         switch (evt.getKeyChar()) {
             case 'h':
-                send("H");
+                horning = true;
                 break;
             case 'w':
-                send("F");
+                forward = true;
                 break;
             case 's':
-                send("B");
+                backward = true;
                 break;
             case 'a':
-                send("L");
+                left = true;
                 break;
             case 'd':
-                send("R");
+                right = true;
                 break;
         }
+        runCar();
     }//GEN-LAST:event_onKeyPress
+
+    private void onKeyRelease(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_onKeyRelease
+        switch(evt.getKeyChar()){
+            case 'w':
+                forward = false;
+                break;
+            case 's':
+                backward = false;
+                break;
+            case 'a':
+                left = false;
+                break;
+            case 'd':
+                right = false;
+            case 'h':
+                horning = false;
+                break;      
+        }
+    }//GEN-LAST:event_onKeyRelease
+
+    private void runCar() {
+        if (horning) {
+            send("H");
+        }
+        if (forward) {
+            if (left) {
+                send("G");
+            } else if (right) {
+                send("D");
+            } else {
+                send("F");
+            }
+        } else if(backward) {
+            if(left){
+                send("V");
+            } else if( right){
+                send("N");
+            } else {
+                send("B");
+            }
+        } else if(left){
+            send("L");
+        } else if(right){
+            send("R");
+        }
+        //horning = left = right = forward = backward = false;
+    }
 
     /**
      * @param args the command line arguments
