@@ -37,9 +37,18 @@ public class MainFrame extends javax.swing.JFrame {
         btnConnect = new javax.swing.JButton();
         btnHorn = new javax.swing.JButton();
         btnHeadlights = new javax.swing.JButton();
+        btnForward = new javax.swing.JButton();
+        btnLeft = new javax.swing.JButton();
+        btnRight = new javax.swing.JButton();
+        btnBackward = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Car Client");
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                onKeyPress(evt);
+            }
+        });
 
         lblTitle.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         lblTitle.setText("Car Client");
@@ -68,28 +77,71 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnHeadlights.setText("Headlights");
 
+        btnForward.setText("F");
+        btnForward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForwardActionPerformed(evt);
+            }
+        });
+
+        btnLeft.setText("L");
+        btnLeft.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeftActionPerformed(evt);
+            }
+        });
+
+        btnRight.setText("R");
+        btnRight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRightActionPerformed(evt);
+            }
+        });
+
+        btnBackward.setText("B");
+        btnBackward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackwardActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitle)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblHostname)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtHostname, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTitle)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnHorn)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnHeadlights))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(177, 177, 177)
+                                        .addComponent(btnLeft)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnRight))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(lblHostname)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtHostname, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel3)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnHorn)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnHeadlights)))
+                        .addGap(257, 257, 257)
+                        .addComponent(btnForward))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(262, 262, 262)
+                        .addComponent(btnBackward)))
                 .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,7 +160,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHorn)
                     .addComponent(btnHeadlights))
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addComponent(btnForward)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLeft)
+                    .addComponent(btnRight))
+                .addGap(45, 45, 45)
+                .addComponent(btnBackward)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,6 +180,9 @@ public class MainFrame extends javax.swing.JFrame {
                 connection = new CarConnection(txtHostname.getText(), Integer.parseInt(txtPort.getText()));
                 connection.connect();
                 btnConnect.setText("Disconnect");
+                txtHostname.setEnabled(false);
+                txtPort.setEnabled(false);
+                this.requestFocus();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Can't connect: " + ex.getMessage());
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,6 +191,8 @@ public class MainFrame extends javax.swing.JFrame {
             connection.disconnect();
             connection = null;
             btnConnect.setText("Connect");
+            txtHostname.setEnabled(true);
+            txtPort.setEnabled(true);
         }
     }//GEN-LAST:event_btnConnectActionPerformed
 
@@ -142,6 +207,67 @@ public class MainFrame extends javax.swing.JFrame {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnHornActionPerformed
+
+    private void btnForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForwardActionPerformed
+        try {
+            String instruction = "F";
+            connection.sendBytes(instruction.getBytes());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnForwardActionPerformed
+
+    private void btnBackwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackwardActionPerformed
+        try {
+            String instruction = "B";
+            connection.sendBytes(instruction.getBytes());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBackwardActionPerformed
+
+    private void btnLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftActionPerformed
+        try {
+            String instruction = "L";
+            connection.sendBytes(instruction.getBytes());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnLeftActionPerformed
+
+    private void btnRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightActionPerformed
+        try {
+            String instruction = "R";
+            connection.sendBytes(instruction.getBytes());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRightActionPerformed
+
+    private void onKeyPress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_onKeyPress
+        System.out.println("Key press: " + evt.getKeyChar());
+        switch (evt.getKeyChar()) {
+            case 'h':
+                send("H");
+                break;
+            case 'w':
+                send("F");
+                break;
+            case 's':
+                send("B");
+                break;
+            case 'a':
+                send("L");
+                break;
+            case 'd':
+                send("R");
+                break;
+        }
+    }//GEN-LAST:event_onKeyPress
 
     /**
      * @param args the command line arguments
@@ -178,10 +304,23 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }
 
+    private void send(String s) {
+        try {
+            connection.sendBytes(s.getBytes());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBackward;
     private javax.swing.JButton btnConnect;
+    private javax.swing.JButton btnForward;
     private javax.swing.JButton btnHeadlights;
     private javax.swing.JButton btnHorn;
+    private javax.swing.JButton btnLeft;
+    private javax.swing.JButton btnRight;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblHostname;
     private javax.swing.JLabel lblTitle;
