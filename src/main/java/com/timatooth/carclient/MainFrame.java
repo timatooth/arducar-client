@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JSlider;
 
 /**
  *
@@ -11,14 +12,17 @@ import javax.swing.JOptionPane;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    boolean horning, forward, backward, left, right;
+    boolean horning, forward, backward, left, right, rotate;
     private CarConnection connection;
+    private int yawPosition, pitchPosition;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        yawPosition = 90;
+        pitchPosition = 90;
     }
 
     /**
@@ -42,6 +46,8 @@ public class MainFrame extends javax.swing.JFrame {
         btnLeft = new javax.swing.JButton();
         btnRight = new javax.swing.JButton();
         btnBackward = new javax.swing.JButton();
+        sldYaw = new javax.swing.JSlider();
+        sldPitch = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Car Client");
@@ -109,6 +115,24 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        sldYaw.setMaximum(180);
+        sldYaw.setValue(90);
+        sldYaw.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                yawChange(evt);
+            }
+        });
+
+        sldPitch.setMaximum(110);
+        sldPitch.setMinimum(60);
+        sldPitch.setOrientation(javax.swing.JSlider.VERTICAL);
+        sldPitch.setValue(90);
+        sldPitch.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                pitchChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,35 +142,41 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitle)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnHorn)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnHeadlights))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGap(177, 177, 177)
                                         .addComponent(btnLeft)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(108, 108, 108)
                                         .addComponent(btnRight))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(lblHostname)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtHostname, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel3)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(245, 245, 245)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnBackward)
+                                            .addComponent(btnForward)))
+                                    .addComponent(lblTitle)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnHorn)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnHeadlights)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(sldPitch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblHostname)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtHostname, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
-                        .addComponent(btnForward))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(262, 262, 262)
-                        .addComponent(btnBackward)))
-                .addContainerGap(112, Short.MAX_VALUE))
+                                .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 27, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(sldYaw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,23 +186,29 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHostname)
-                    .addComponent(txtHostname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHostname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConnect))
-                .addGap(18, 18, 18)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHorn)
                     .addComponent(btnHeadlights))
                 .addGap(51, 51, 51)
                 .addComponent(btnForward)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLeft)
-                    .addComponent(btnRight))
-                .addGap(45, 45, 45)
-                .addComponent(btnBackward)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnLeft)
+                            .addComponent(btnRight))
+                        .addGap(29, 29, 29)
+                        .addComponent(btnBackward))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sldPitch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(sldYaw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -270,12 +306,15 @@ public class MainFrame extends javax.swing.JFrame {
             case 'd':
                 right = true;
                 break;
+            case 'r':
+                rotate = true;
+                break;
         }
         runCar();
     }//GEN-LAST:event_onKeyPress
 
     private void onKeyRelease(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_onKeyRelease
-        switch(evt.getKeyChar()){
+        switch (evt.getKeyChar()) {
             case 'w':
                 forward = false;
                 break;
@@ -289,9 +328,45 @@ public class MainFrame extends javax.swing.JFrame {
                 right = false;
             case 'h':
                 horning = false;
-                break;      
+                break;
+            case 'r':
+                rotate = false;
+                break;
         }
     }//GEN-LAST:event_onKeyRelease
+
+    private void yawChange(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_yawChange
+        JSlider source = (JSlider) evt.getSource();
+        if (source.getValueIsAdjusting()) {
+            yawPosition = (int) source.getValue();
+            System.out.println("Yaw: " + yawPosition);
+            try {
+                String cmd = "Y";
+                byte[] output = new byte[2];
+                output[0] = cmd.getBytes()[0];
+                output[1] = (byte) yawPosition;
+                connection.sendBytes(output);
+            } catch (IOException ioe){
+                System.err.println("cant send yaw change");
+            }
+        }
+    }//GEN-LAST:event_yawChange
+
+    private void pitchChange(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pitchChange
+        JSlider source = (JSlider) evt.getSource();
+        if (source.getValueIsAdjusting()) {
+            pitchPosition = (int) source.getValue();
+            try {
+                String cmd = "P";
+                byte[] output = new byte[2];
+                output[0] = cmd.getBytes()[0];
+                output[1] = (byte)pitchPosition;
+                connection.sendBytes(output);
+            } catch (IOException ioe){
+                System.err.println("cant send pitch change");
+            }
+        }
+    }//GEN-LAST:event_pitchChange
 
     private void runCar() {
         if (horning) {
@@ -305,18 +380,21 @@ public class MainFrame extends javax.swing.JFrame {
             } else {
                 send("F");
             }
-        } else if(backward) {
-            if(left){
+        } else if (backward) {
+            if (left) {
                 send("V");
-            } else if( right){
+            } else if (right) {
                 send("N");
             } else {
                 send("B");
             }
-        } else if(left){
+        } else if (left) {
             send("L");
-        } else if(right){
+        } else if (right) {
             send("R");
+        }
+        if (rotate) {
+            send("T");
         }
         //horning = left = right = forward = backward = false;
     }
@@ -376,6 +454,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblHostname;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JSlider sldPitch;
+    private javax.swing.JSlider sldYaw;
     private javax.swing.JTextField txtHostname;
     private javax.swing.JTextField txtPort;
     // End of variables declaration//GEN-END:variables

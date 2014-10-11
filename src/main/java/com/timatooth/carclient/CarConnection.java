@@ -32,8 +32,13 @@ public class CarConnection {
     }
 
     public void sendBytes(byte[] b) throws IOException {
-        System.out.println("Sending: " + b[0]);
-        out.write(b[0]);
+        System.out.println("Writing " +  b.length + " bytes.");
+        out.write(b);
+        out.flush();
+    }
+    
+    public void sendByte(byte b) throws IOException {
+        out.write(b);
         out.flush();
     }
     
