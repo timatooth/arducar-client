@@ -10,7 +10,7 @@ import javax.swing.JSlider;
  *
  * @author tim
  */
-public class MainFrame extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame {
 
     boolean horning, forward, backward, left, right, rotate;
     private CarConnection connection;
@@ -19,7 +19,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public Main() {
         initComponents();
         yawPosition = 90;
         pitchPosition = 90;
@@ -225,7 +225,7 @@ public class MainFrame extends javax.swing.JFrame {
                 this.requestFocus();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Can't connect: " + ex.getMessage());
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             connection.disconnect();
@@ -244,7 +244,7 @@ public class MainFrame extends javax.swing.JFrame {
             connection.sendBytes(horn.getBytes());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnHornActionPerformed
 
@@ -254,7 +254,7 @@ public class MainFrame extends javax.swing.JFrame {
             connection.sendBytes(instruction.getBytes());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnForwardActionPerformed
 
@@ -264,7 +264,7 @@ public class MainFrame extends javax.swing.JFrame {
             connection.sendBytes(instruction.getBytes());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBackwardActionPerformed
 
@@ -274,7 +274,7 @@ public class MainFrame extends javax.swing.JFrame {
             connection.sendBytes(instruction.getBytes());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLeftActionPerformed
 
@@ -284,7 +284,7 @@ public class MainFrame extends javax.swing.JFrame {
             connection.sendBytes(instruction.getBytes());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRightActionPerformed
 
@@ -416,20 +416,21 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                new Main().setVisible(true);
             }
         });
     }
@@ -439,7 +440,7 @@ public class MainFrame extends javax.swing.JFrame {
             connection.sendBytes(s.getBytes());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -10,4 +10,9 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
+    <name>Car Client</name>
+    <description>
+        Connect to server over TCP to send instructions to an Arduino powered
+        RC car.
+    </description>
 </project>
