@@ -246,6 +246,7 @@ public class Main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.requestFocus();
     }//GEN-LAST:event_btnHornActionPerformed
 
     private void btnForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForwardActionPerformed
@@ -350,6 +351,7 @@ public class Main extends javax.swing.JFrame {
                 System.err.println("cant send yaw change");
             }
         }
+        this.requestFocus();
     }//GEN-LAST:event_yawChange
 
     private void pitchChange(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pitchChange
@@ -366,6 +368,7 @@ public class Main extends javax.swing.JFrame {
                 System.err.println("cant send pitch change");
             }
         }
+        this.requestFocus();
     }//GEN-LAST:event_pitchChange
 
     private void runCar() {
