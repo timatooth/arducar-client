@@ -32,17 +32,22 @@ public class CarConnection {
     }
 
     public void sendBytes(byte[] b) throws IOException {
-        System.out.println("Writing " +  b.length + " bytes.");
+        System.out.println("Writing " + b.length + " bytes.");
         out.write(b);
         out.flush();
     }
-    
+
     public void sendByte(byte b) throws IOException {
         out.write(b);
         out.flush();
     }
-    
-    public void disconnect(){
+
+    public void send(String s) throws IOException {
+        out.write(s.getBytes());
+        out.flush();
+    }
+
+    public void disconnect() {
         try {
             socket.close();
         } catch (IOException ex) {

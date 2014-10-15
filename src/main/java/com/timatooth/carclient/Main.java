@@ -1,6 +1,8 @@
 package com.timatooth.carclient;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -12,9 +14,10 @@ import javax.swing.JSlider;
  */
 public class Main extends javax.swing.JFrame {
 
-    boolean horning, forward, backward, left, right, rotate;
     private CarConnection connection;
     private int yawPosition, pitchPosition;
+    private final Map<String, Boolean> actions;
+    private NetWriteThread writeThread;
 
     /**
      * Creates new form MainFrame
@@ -23,6 +26,12 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         yawPosition = 90;
         pitchPosition = 90;
+        actions = new ConcurrentHashMap<>();
+        actions.put("left", false);
+        actions.put("right", false);
+        actions.put("forward", false);
+        actions.put("backward", false);
+        actions.put("horn", false);
     }
 
     /**
@@ -219,6 +228,8 @@ public class Main extends javax.swing.JFrame {
             try {
                 connection = new CarConnection(txtHostname.getText(), Integer.parseInt(txtPort.getText()));
                 connection.connect();
+                writeThread = new NetWriteThread(actions, connection);
+                writeThread.start();
                 btnConnect.setText("Disconnect");
                 txtHostname.setEnabled(false);
                 txtPort.setEnabled(false);
@@ -228,6 +239,7 @@ public class Main extends javax.swing.JFrame {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
+            writeThread.setRunning(false);
             connection.disconnect();
             connection = null;
             btnConnect.setText("Connect");
@@ -293,45 +305,38 @@ public class Main extends javax.swing.JFrame {
         System.out.println("Key press: " + evt.getKeyChar());
         switch (evt.getKeyChar()) {
             case 'h':
-                horning = true;
+                actions.put("horn", true);
                 break;
             case 'w':
-                forward = true;
+                actions.put("forward", true);
                 break;
             case 's':
-                backward = true;
+                actions.put("backward", true);
                 break;
             case 'a':
-                left = true;
+                actions.put("left", true);
                 break;
             case 'd':
-                right = true;
-                break;
-            case 'r':
-                rotate = true;
+                actions.put("right", true);
                 break;
         }
-        runCar();
     }//GEN-LAST:event_onKeyPress
 
     private void onKeyRelease(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_onKeyRelease
         switch (evt.getKeyChar()) {
             case 'w':
-                forward = false;
+                actions.put("forward", false);
                 break;
             case 's':
-                backward = false;
+                actions.put("backward", false);
                 break;
             case 'a':
-                left = false;
+                actions.put("left", false);
                 break;
             case 'd':
-                right = false;
+                actions.put("right", false);
             case 'h':
-                horning = false;
-                break;
-            case 'r':
-                rotate = false;
+                actions.put("horn", false);
                 break;
         }
     }//GEN-LAST:event_onKeyRelease
@@ -371,37 +376,6 @@ public class Main extends javax.swing.JFrame {
         this.requestFocus();
     }//GEN-LAST:event_pitchChange
 
-    private void runCar() {
-        if (horning) {
-            send("H");
-        }
-        if (forward) {
-            if (left) {
-                send("G");
-            } else if (right) {
-                send("D");
-            } else {
-                send("F");
-            }
-        } else if (backward) {
-            if (left) {
-                send("V");
-            } else if (right) {
-                send("N");
-            } else {
-                send("B");
-            }
-        } else if (left) {
-            send("L");
-        } else if (right) {
-            send("R");
-        }
-        if (rotate) {
-            send("T");
-        }
-        //horning = left = right = forward = backward = false;
-    }
-
     /**
      * @param args the command line arguments
      */
@@ -436,15 +410,6 @@ public class Main extends javax.swing.JFrame {
                 new Main().setVisible(true);
             }
         });
-    }
-
-    private void send(String s) {
-        try {
-            connection.sendBytes(s.getBytes());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Couldn't send byte: " + ex.getMessage());
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
