@@ -209,7 +209,7 @@
                                   <Component id="btnHorn" min="-2" pref="159" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="40" max="32767" attributes="0"/>
-                              <Component id="jToggleButton1" min="-2" pref="152" max="-2" attributes="0"/>
+                              <Component id="btnHeadlights" min="-2" pref="152" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -237,7 +237,7 @@
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jToggleButton1" max="32767" attributes="0"/>
+                          <Component id="btnHeadlights" max="32767" attributes="0"/>
                           <Component id="btnHorn" min="-2" pref="128" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -364,7 +364,7 @@
                 <Property name="text" type="java.lang.String" value="3 ms"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+            <Component class="javax.swing.JToggleButton" name="btnHeadlights">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cd" green="f0" red="ee" type="rgb"/>
@@ -374,7 +374,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHeadlightsActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

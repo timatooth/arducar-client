@@ -72,7 +72,7 @@ public class Main extends javax.swing.JFrame {
         proSigQuality = new javax.swing.JProgressBar();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        btnHeadlights = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Car Client");
@@ -195,11 +195,11 @@ public class Main extends javax.swing.JFrame {
 
         jLabel6.setText("3 ms");
 
-        jToggleButton1.setBackground(new java.awt.Color(238, 240, 205));
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/timatooth/carclient/headlights.png"))); // NOI18N
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnHeadlights.setBackground(new java.awt.Color(238, 240, 205));
+        btnHeadlights.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/timatooth/carclient/headlights.png"))); // NOI18N
+        btnHeadlights.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                btnHeadlightsActionPerformed(evt);
             }
         });
 
@@ -231,7 +231,7 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(btnRight))
                             .addComponent(btnHorn, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHeadlights, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlStatsLayout.setVerticalGroup(
@@ -255,7 +255,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHeadlights, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHorn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnForward)
@@ -475,9 +475,9 @@ public class Main extends javax.swing.JFrame {
         this.requestFocus();
     }//GEN-LAST:event_pitchChange
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void btnHeadlightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHeadlightsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_btnHeadlightsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -521,6 +521,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnBackward;
     private javax.swing.JButton btnConnect;
     private javax.swing.JButton btnForward;
+    private javax.swing.JToggleButton btnHeadlights;
     private javax.swing.JButton btnHorn;
     private javax.swing.JButton btnLeft;
     private javax.swing.JButton btnRight;
@@ -530,7 +531,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblHostname;
     private javax.swing.JPanel pnlStats;
     private javax.swing.JPanel pnlVideo;

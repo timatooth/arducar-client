@@ -26,7 +26,7 @@ public class MjpegPanel extends JPanel implements Runnable {
 
     private static final String CONTENT_LENGTH = "Content-Length: ";
     private static final String TIMESTAMP = "X-Timestamp: ";
-    private JLabel l1;
+    private JLabel lblFps;
     private final InputStream urlStream;
     private StringWriter stringWriter;
     private boolean processing = true;
@@ -39,7 +39,7 @@ public class MjpegPanel extends JPanel implements Runnable {
     private final ActionListener fpsReader = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            l1.setText("FPS: " + fps);
+            lblFps.setText("FPS: " + fps);
             fps = 0;
         }
     };
@@ -61,9 +61,10 @@ public class MjpegPanel extends JPanel implements Runnable {
     }
 
     public final void CreateGUI() {
-        l1 = new JLabel("FPS: ");
-        this.setSize(640, 490);
-        this.add(l1);
+        lblFps = new JLabel("FPS: ");
+        lblFps.setForeground(Color.GREEN);
+        this.setSize(640, 480);
+        this.add(lblFps);
         this.setLayout(new GridLayout(1, 1));
     }
 
