@@ -72,6 +72,7 @@ public class Main extends javax.swing.JFrame {
         proSigQuality = new javax.swing.JProgressBar();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Car Client");
@@ -84,17 +85,17 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        lblHostname.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        lblHostname.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         lblHostname.setText("Hostname");
 
         txtHostname.setText("localhost");
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         jLabel3.setText("Port");
 
         txtPort.setText("9090");
 
-        btnConnect.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btnConnect.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
         btnConnect.setText("Connect");
         btnConnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,7 +135,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnLeft.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btnLeft.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         btnLeft.setText("L");
         btnLeft.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +143,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnRight.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btnRight.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         btnRight.setText("R");
         btnRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,7 +151,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnBackward.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btnBackward.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         btnBackward.setText("B");
         btnBackward.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +159,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnForward.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btnForward.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         btnForward.setText("F");
         btnForward.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,8 +167,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnHorn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        btnHorn.setText("Horn");
+        btnHorn.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        btnHorn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/timatooth/carclient/horn.png"))); // NOI18N
         btnHorn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHornActionPerformed(evt);
@@ -176,23 +177,31 @@ public class Main extends javax.swing.JFrame {
 
         proBattery.setValue(50);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         jLabel1.setText("Battery");
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         jLabel2.setText("Link Strength");
 
         proSigStrength.setValue(80);
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         jLabel4.setText("Link Quality");
 
         proSigQuality.setValue(90);
 
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         jLabel5.setText("Latency");
 
         jLabel6.setText("3 ms");
+
+        jToggleButton1.setBackground(new java.awt.Color(238, 240, 205));
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/timatooth/carclient/headlights.png"))); // NOI18N
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlStatsLayout = new javax.swing.GroupLayout(pnlStats);
         pnlStats.setLayout(pnlStatsLayout);
@@ -208,23 +217,21 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
+                                .addGap(39, 39, 39)
                                 .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlStatsLayout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnBackward)
-                                            .addComponent(btnForward)))
-                                    .addGroup(pnlStatsLayout.createSequentialGroup()
-                                        .addComponent(btnLeft)
-                                        .addGap(37, 37, 37)
-                                        .addComponent(btnRight))))
-                            .addComponent(btnHorn)
+                                    .addComponent(btnBackward)
+                                    .addComponent(btnForward)))
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(0, 149, Short.MAX_VALUE)))
+                            .addComponent(jLabel6)
+                            .addGroup(pnlStatsLayout.createSequentialGroup()
+                                .addComponent(btnLeft)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRight))
+                            .addComponent(btnHorn, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlStatsLayout.setVerticalGroup(
@@ -246,8 +253,10 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                .addComponent(btnHorn)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHorn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnForward)
                 .addGap(7, 7, 7)
@@ -278,7 +287,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 375, Short.MAX_VALUE))
+                        .addGap(0, 479, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(sldYaw, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -303,7 +312,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sldPitch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tabStatsPane)
-                    .addComponent(pnlVideo, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE))
+                    .addComponent(pnlVideo, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldYaw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -466,6 +475,10 @@ public class Main extends javax.swing.JFrame {
         this.requestFocus();
     }//GEN-LAST:event_pitchChange
 
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -517,6 +530,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblHostname;
     private javax.swing.JPanel pnlStats;
     private javax.swing.JPanel pnlVideo;
